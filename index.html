@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AccessPay — an accessible demo payment platform. All payments are simulated.">
+  <title>AccessPay</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <!-- Apply saved display settings before first paint so high contrast / large text
+       users don't see a flash of the default theme. Kept tiny on purpose. -->
+  <script>
+    try {
+      var s = JSON.parse(localStorage.getItem('accesspay.settings') || '{}');
+      var root = document.documentElement;
+      if (s.contrast === 'high') root.dataset.contrast = 'high';
+      if (s.motion === 'reduce') root.dataset.motion = 'reduce';
+      if (s.fontScale) root.style.setProperty('--font-scale', s.fontScale);
+    } catch (e) { /* storage unavailable: defaults are fine */ }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="shell">
+    <header class="sidebar">
+      <a class="wordmark" href="#/" aria-label="AccessPay, go to overview">
+        <svg class="wordmark__mark" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+          <rect x="2" y="5" width="20" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M2 10h20" stroke="currentColor" stroke-width="2"/>
+          <path d="M6 15h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>AccessPay</span>
+      </a>
+
+      <nav class="nav" aria-label="Main">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#/" data-route="overview">Overview</a></li>
+          <li><a class="nav__link" href="#/pay" data-route="pay">Make a payment</a></li>
+          <li><a class="nav__link" href="#/transactions" data-route="transactions">Transactions</a></li>
+          <li><a class="nav__link" href="#/settings" data-route="settings">Display &amp; data</a></li>
+        </ul>
+      </nav>
+
+      <p class="demo-note">Demo only. No real money moves and no card or bank details are collected.</p>
+    </header>
+
+    <main id="main" class="main" tabindex="-1">
+      <noscript>
+        <p class="notice">AccessPay needs JavaScript to run. Please enable it and reload the page.</p>
+      </noscript>
+    </main>
+  </div>
+
+  <!-- Screen reader announcements (route changes, payment results, filter counts) -->
+  <div id="live-polite" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+  <div id="live-assertive" class="visually-hidden" aria-live="assertive" aria-atomic="true"></div>
+</body>
+</html>

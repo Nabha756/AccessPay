@@ -1,0 +1,66 @@
+AccessPay - how to run it
+=========================
+
+WHAT YOU NEED
+-------------
+To RUN the app:
+  - A modern web browser (Chrome, Firefox, Edge or Safari)
+  - Python 3 (already installed on Ubuntu / macOS; check with: python3 --version)
+    Any other simple static file server also works (see below).
+
+To RUN THE TESTS (optional):
+  - Node.js 18 or newer (check with: node --version)
+    Download from https://nodejs.org if missing (choose the LTS version)
+
+Nothing else. No framework, no database, no build step.
+
+
+1. RUN THE APP
+--------------
+Open a terminal inside this AccessPay folder and run:
+
+    python3 -m http.server 4173
+
+Then open this address in your browser:
+
+    http://localhost:4173
+
+Stop the server with Ctrl + C.
+
+Why a server? The JavaScript uses ES modules, which browsers refuse to load
+when you double-click index.html (file://). Any local server fixes that.
+
+Alternatives instead of Python:
+  - VS Code: install the "Live Server" extension, right-click index.html,
+    choose "Open with Live Server".
+  - Node.js:  npx serve .
+
+
+2. TRY IT OUT
+-------------
+- Sample transactions load automatically on first visit.
+- Payments are simulated. To see other outcomes, pay to:
+    fail@okdemo      -> always fails
+    pending@okdemo   -> stays pending
+    a bank account ending in 0000 -> always fails
+- "Display & data" page: high contrast, text size, reduce motion,
+  delete all transactions / restore sample data.
+
+
+3. RUN THE TESTS (optional)
+---------------------------
+In a terminal inside this folder:
+
+    npm install                       (installs Playwright and axe-core, dev-only)
+    npx playwright install chromium   (one-time browser download, ~150 MB)
+
+    npm test                          (57 unit tests, takes a few seconds)
+    npm run test:e2e                  (browser tests, about 1-2 minutes)
+
+If you already have Google Chrome and want to skip the browser download:
+
+    CHROME_PATH=/usr/bin/google-chrome npm run test:e2e
+
+
+See README.md for features, folder structure, design decisions,
+accessibility notes and known limitations.
